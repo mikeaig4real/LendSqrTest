@@ -283,9 +283,9 @@ const login = async (req, res) => {
             message: 'Login successful',
             data: {
                 user: userDetails,
-                credits: credits || [],
-                debits: debits || [],
-                transfers: transfers || [],
+                credits: !Array.isArray(credits) ? [credits] : !credits ? [] : credits,
+                debits: !Array.isArray(debits) ? [debits] : !debits ? [] : debits,
+                transfers: !Array.isArray(transfers) ? [transfers] : !transfers ? [] : transfers,
             }
         });
     } catch (error) {
