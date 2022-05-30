@@ -1,2 +1,2 @@
 # LendSqrTest
-A Simple Finacial Transactions API
+A Simple Financial Transactions API
