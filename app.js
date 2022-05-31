@@ -57,10 +57,12 @@ app.use(mongoSanitize());
 
 const port = process.env.PORT || 8000;
 
+let server;
+
 const start = async () => {
     try {
         await getConnection().then(() => console.log('Connected to database')).catch(err => { throw new Error(err) });
-        app.listen(port, () =>
+        server = app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
     } catch (error) {
@@ -69,3 +71,8 @@ const start = async () => {
 };
 
 start();
+
+module.exports = {
+    app,
+    server
+};

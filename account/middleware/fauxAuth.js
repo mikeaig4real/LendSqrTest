@@ -9,7 +9,7 @@ const fauxAuthentication = (req, res, next) => {
     };
     next();
   } else {
-    res.status(StatusCodes.UNAUTHORIZED).json({
+    return res.status(StatusCodes.UNAUTHORIZED).json({
       error: true,
       message: 'Unauthorized, use valid accountId as token'
     });

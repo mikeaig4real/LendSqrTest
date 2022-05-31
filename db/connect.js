@@ -2,8 +2,13 @@ require('dotenv').config();
 
 let knex = require('knex')({
     client: 'pg',
-    // connect with url
-    connection: process.env.DATABASE_URL,
+    connection: {
+        host: process.env.PG_HOST,
+        user: process.env.PG_USER,
+        password: process.env.PG_PASSWORD,
+        database: process.env.PG_DB,
+        port: process.env.PG_PORT,
+    },
     debug: true,
     pool: {
         min: 2,
@@ -137,7 +142,7 @@ const alterTable = async (table, alter) => {
 
 const dropTable = async (table) => {
     try {
-        const result = await knex.schema.dropTable(table);
+        const result = await knex.schema.dropTableIfExists(table);
         // console.table(result);
         return {
             error: false,

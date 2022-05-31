@@ -256,7 +256,7 @@ const login = async (req, res) => {
         });
     };
     try {
-        const { data: existingAccount } = await Account.find(['username', '=', username], ['username', 'password', 'accountId', 'accountBalance']);
+        const { data: existingAccount } = await Account.find(['username', '=', username], ['username', 'email', 'password', 'accountId', 'accountBalance']);
         if (!existingAccount) {
             return res.status(StatusCodes.NOT_FOUND).json({
                 error: true,
@@ -283,9 +283,9 @@ const login = async (req, res) => {
             message: 'Login successful',
             data: {
                 user: userDetails,
-                credits: !Array.isArray(credits) ? [credits] : !credits ? [] : credits,
-                debits: !Array.isArray(debits) ? [debits] : !debits ? [] : debits,
-                transfers: !Array.isArray(transfers) ? [transfers] : !transfers ? [] : transfers,
+                credits: !Array.isArray(credits) ? [credits] : credits.length ? credits : [],
+                debits: !Array.isArray(debits) ? [debits] : debits.length ? debits : [],
+                transfers: !Array.isArray(transfers) ? [transfers] : transfers.length ? transfers : [],
             }
         });
     } catch (error) {
